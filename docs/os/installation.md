@@ -1,21 +1,27 @@
 # Installing KODE OS
 
-This guide walks you through installing KODE OS on a Raspberry Pi from
-scratch. It takes about **fifteen minutes** end-to-end, most of which is
-waiting for the SD card to flash.
+This guide walks you through installing KODE OS on a Raspberry Pi 5 from
+scratch. It takes about **twenty minutes** end-to-end, plus a longer
+hands-off wait while the installer pulls Docker, CasaOS, and the KODE OS
+dashboard onto the pebble.
 
 If you bought a pre-built pebble from KODE NAS, you don't need this page —
 your pebble already has KODE OS on it. Skip ahead to [First boot
 setup](first-boot.md).
 
+!!! warning "Alpha software"
+    KODE OS is currently **v0.1.0-alpha**. APIs, defaults, and the install
+    path will change. Only run it on hardware you can reflash.
+
 ## What you'll need
 
 Before you start, gather these. You probably have most of them already.
 
-- **A Raspberry Pi.** Pi 5 (4 GB or 8 GB) recommended. Pi 4 (4 GB or 8 GB)
-  also works. Older models aren't supported.
-- **A microSD card.** 16 GB or larger. Class 10 / A1 or better — slow cards
-  make everything else feel slow.
+- **A Raspberry Pi 5 (4 GB or 8 GB).** This is the only model we test
+  against. Pi 4 may work but isn't supported.
+- **A microSD card.** 64 GB or larger. Class 10 / A1 or better — slow cards
+  make everything feel slow. An M.2 NVMe via the Pi 5 HAT is a great upgrade
+  if you have one.
 - **A USB-C power supply.** The official Raspberry Pi 5 power supply (5 V /
   5 A) is what we recommend. Underpowered supplies cause random reboots that
   are hard to diagnose.
@@ -24,35 +30,29 @@ Before you start, gather these. You probably have most of them already.
 - **An SD card reader.** Built into most laptops; otherwise a cheap USB one
   works fine.
 - **Another computer.** Mac, Windows, or Linux — anything that can run
-  Raspberry Pi Imager.
+  Raspberry Pi Imager and open an SSH session.
 
-!!! info "About the Pi 5"
-    KODE OS is developed and tested on the Pi 5. Everything works on the Pi 4
-    too, but the Pi 5 is noticeably snappier in the dashboard and faster at
-    handling photo backups.
+## How the install works
+
+KODE OS isn't a single image you flash to an SD card. It's an installer that
+runs on top of a fresh **Raspberry Pi OS Lite (64-bit, Bookworm)** install,
+and adds:
+
+1. Docker.
+2. The upstream [CasaOS](https://github.com/IceWhaleTech/CasaOS) runtime.
+3. The KODE OS dashboard, built and overlaid onto the CasaOS web root.
+4. The OLED display daemon (only if you have the OLED accessory).
+
+So the order of operations is: **flash Pi OS Lite → SSH in → run the
+installer → open the dashboard.**
 
 ## Installation steps
 
-### 1. Download the latest KODE OS image
+### 1. Flash Raspberry Pi OS Lite to your SD card
 
-Head to the [KODE OS releases page on
-GitHub](https://github.com/KodeNAS/kode-os/releases) and download the most
-recent `.img.xz` file. It's around 1.5 GB.
-
-You don't need to decompress it — Raspberry Pi Imager handles that for you.
-
-### 2. Install Raspberry Pi Imager
-
-Grab it from the [official Raspberry Pi
-website](https://www.raspberrypi.com/software/) and install it like any
-other app on your computer.
-
-If you'd rather use a different flashing tool, [balenaEtcher](https://etcher.balena.io/)
-works too — see the tabs below.
-
-### 3. Flash KODE OS to your SD card
-
-Insert your microSD card into your computer.
+Insert your microSD card into your computer and open **Raspberry Pi Imager**
+(grab it from the [Raspberry Pi
+website](https://www.raspberrypi.com/software/) if you don't have it).
 
 !!! warning "This will erase everything on the SD card"
     Flashing replaces the entire contents of the card. Anything currently on
@@ -60,92 +60,141 @@ Insert your microSD card into your computer.
     in the imager** — it's easy to pick a USB drive or an external disk by
     mistake.
 
-=== "Raspberry Pi Imager"
+=== "Raspberry Pi Imager (recommended)"
 
     1. Open Raspberry Pi Imager.
-    2. Click **Choose device** → pick your Pi model (Pi 5, Pi 4, etc.).
-    3. Click **Choose OS** → scroll to the bottom → **Use custom** → select
-       the `kode-os-*.img.xz` you downloaded.
-    4. Click **Choose storage** → pick your microSD card.
-    5. Click **Next**. When asked about OS customisation, choose **No** —
-       KODE OS handles its own setup wizard on first boot.
-    6. Confirm and wait. Flashing takes 3–7 minutes depending on your card.
+    2. **Choose device** → **Raspberry Pi 5**.
+    3. **Choose OS** → **Raspberry Pi OS (other)** → **Raspberry Pi OS Lite
+       (64-bit)**.
+    4. **Choose storage** → your microSD card.
+    5. **Next** → when asked about OS customisation, click **Edit
+       settings**. This step is important — set:
+        - **Hostname:** `pebble`
+        - **Username:** `kode`
+        - **Password:** something memorable; you'll use it once.
+        - **Wireless LAN:** only if you're not using ethernet.
+        - **Services tab:** turn on **Enable SSH** → **Use password
+          authentication** (or paste your public key, if you have one).
+    6. **Save** → **Yes** → confirm the erase warning → wait. Flashing
+       takes 3–7 minutes depending on your card.
 
 === "balenaEtcher"
 
-    1. Open Etcher.
-    2. Click **Flash from file** → select the `kode-os-*.img.xz` you
-       downloaded.
-    3. Click **Select target** → pick your microSD card.
-    4. Click **Flash!** and wait. Etcher verifies the write automatically
-       when it finishes.
+    Etcher can flash the image, but it can't pre-configure SSH, the
+    hostname, or the user. You'll have to do that by hand after the first
+    boot — either by attaching a monitor and keyboard to the Pi, or by
+    mounting the SD card again and creating empty `ssh` and `userconf.txt`
+    files in the boot partition. Use Raspberry Pi Imager if you can.
+
+    1. Download the latest **Raspberry Pi OS Lite (64-bit)** image from the
+       [official Raspberry Pi OS page](https://www.raspberrypi.com/software/operating-systems/).
+    2. Open Etcher → **Flash from file** → pick the downloaded image.
+    3. **Select target** → your microSD card.
+    4. **Flash!** and wait. Etcher verifies the write automatically when
+       it finishes.
 
 When the imager says it's safe to remove the card, eject it from your
 computer.
 
-### 4. Insert the SD card and power up
+### 2. Boot the Pi
 
 1. Slot the microSD card into the underside of your Raspberry Pi.
 2. Plug an ethernet cable from the Pi into your router or switch.
 3. Plug in the USB-C power supply.
 
-The Pi will boot. The first boot takes 1–2 minutes while KODE OS expands the
-filesystem and sets itself up. The green activity LED on the Pi will flicker
-the whole time — that's normal.
+The Pi will boot. The first boot takes 1–2 minutes while Pi OS expands the
+filesystem and applies the imager settings.
 
-If you have a pebble with an OLED screen on the front, it will start showing
-the pebble's name and IP address once boot is done.
+### 3. SSH into the Pi
 
-### 5. Find your pebble on the network
+From your other computer, open a terminal and connect:
 
-You can reach the dashboard in three ways. Try them in order — the first one
-that works is the easiest.
+```bash
+ssh kode@pebble.local
+```
 
-=== "By name"
+Type the password you set in the imager. If `pebble.local` doesn't resolve
+(some routers don't support mDNS), find the Pi's IP address from your
+router's admin page and SSH to that instead:
 
-    Open a browser and go to:
+```bash
+ssh kode@<the-ip-address>
+```
 
-    ```
-    http://kode.local
-    ```
+!!! info "First-time host key prompt"
+    SSH will ask whether to trust the host key the first time. Type **yes**
+    and hit enter.
 
-    This works on most home networks. If your browser shows "site not found",
-    your network doesn't support mDNS — try the next tab.
+### 4. Run the KODE OS installer
 
-=== "By IP address"
+Once you're SSHed in, clone the repo and run the installer:
 
-    If your pebble has an OLED screen, the IP address is shown there. Open a
-    browser and go to:
+```bash
+git clone https://github.com/KodeNAS/kode-os.git
+cd kode-os
+sudo ./scripts/install.sh
+```
 
-    ```
-    http://<that-ip-address>
-    ```
+The installer runs through seven phases and prints what it's doing the
+whole way:
 
-    No OLED? Check your router's admin page — there's usually a list of
-    connected devices. Look for one called **kode** or **pebble**.
+1. Checks you're on a Raspberry Pi with a supported Raspberry Pi OS
+   release.
+2. Installs Docker.
+3. Installs the upstream CasaOS runtime.
+4. Installs Node 18 and pnpm.
+5. Clones, builds, and overlays the KODE OS dashboard onto the CasaOS web
+   root.
+6. Installs the OLED display daemon — only if you have the OLED
+   accessory (auto-detected).
+7. Prints the dashboard URL.
 
-=== "From another computer"
+This step takes **10–20 minutes** depending on your network speed. Most of
+the wait is Docker and CasaOS being pulled. You can step away.
 
-    On Linux or macOS, you can also try:
+??? note "Optional installer flags"
+    The installer accepts a few flags for less common cases:
 
-    ```bash
-    ping kode.local
-    ```
+    - `--no-oled` — skip the OLED daemon even if the hardware is detected.
+    - `--skip-casaos` — install only the KODE OS layer, on a Pi that
+      already has CasaOS.
+    - `--version REF` — install a specific git ref (tag, branch, or commit)
+      of the dashboard rather than the latest.
+    - `--uninstall` — remove KODE OS, the OLED daemon, and CasaOS. Your
+      `/DATA` folder is left untouched.
 
-    to see the IP address, then visit `http://<that-ip>` in your browser.
+### 5. Open the dashboard
 
-### 6. Complete the setup wizard
+When the installer finishes, it prints a URL. Open it in any browser on the
+same network — it'll look like:
+
+```
+http://pebble.local
+```
+
+If that doesn't resolve, use the Pi's IP address (same one you used for
+SSH). The first request can take a few seconds while CasaOS warms up.
+
+!!! info "HTTPS is optional"
+    The dashboard runs over HTTP by default. If you'd rather have HTTPS with
+    a per-pebble local certificate authority, run
+    `sudo ./scripts/setup-pebble-https.sh` after the main install — it
+    installs Caddy with `tls internal`.
+
+### 6. Run the welcome wizard
 
 The first time you open the dashboard, you'll see the **welcome wizard**.
-It asks you to:
+It walks you through:
 
-- Set an admin password.
-- Pick a name for your pebble.
-- Optionally add family member accounts.
-- Pick which apps to install (photos, files, media, etc.).
+- Setting an admin password for the dashboard.
+- Naming your pebble.
+- Adding family member accounts (optional).
+- Picking which apps to install — photos, files, media, ad blocker, smart
+  home.
+- Choosing a dashboard layout.
 
-Take your time. None of it is permanent — you can change anything later from
-the **Settings** screen.
+Take your time. None of it is permanent — you can change anything later
+from the **Settings** screen.
 
 The wizard is covered in detail on the [First boot setup](first-boot.md)
 page.
