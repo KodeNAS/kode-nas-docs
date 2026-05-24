@@ -1,1 +1,89 @@
-site_name: My Docs
+site_name: KODE NAS Docs
+site_url: https://docs.kodenas.dev
+site_description: >-
+  Documentation for KODE OS and the KODE NAS pebble — your own private cloud,
+  in a box the size of a paperback.
+site_author: KODE NAS
+repo_url: https://github.com/KodeNAS/kode-nas-os
+repo_name: KodeNAS/kode-nas-os
+edit_uri: ""
+copyright: Copyright &copy; KODE NAS
+
+exclude_docs: |
+  _assets-reference/
+
+theme:
+  name: material
+  language: en
+  logo: assets/brand/logo-mark.svg
+  favicon: assets/favicons/favicon.svg
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - KODE OS:
+      - Overview: os/index.md
+      - Installation: os/installation.md
+      - First Boot Setup: os/first-boot.md
+      - File Sharing (Samba): os/samba.md
+      - OLED Display: os/oled.md
+      - Troubleshooting: os/troubleshooting.md
+  - KODE NAS Pebble:
+      - Overview: pebble/index.md
+      - Unboxing: pebble/unboxing.md
+      - Specifications: pebble/specs.md
+      - Hardware Setup: pebble/setup.md

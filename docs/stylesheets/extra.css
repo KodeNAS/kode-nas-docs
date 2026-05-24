@@ -1,0 +1,257 @@
+/* =========================================================================
+   KODE NAS Docs — theme tokens
+   All values traceable to DESIGN.md. Same brand language as kodenas.dev/os.
+   ========================================================================= */
+
+:root {
+  /* Brand — primary palette (DESIGN.md → Colour → Primary palette) */
+  --kode-primary:        #2D5F4E;
+  --kode-primary-hover:  #3F7A66;
+  --kode-primary-active: #1F4438;
+  --kode-primary-tint:   rgba(45, 95, 78, 0.12);
+  --kode-primary-glow:   rgba(45, 95, 78, 0.55);
+
+  /* Surfaces & ink (DESIGN.md → Surface palette / Text palette) */
+  --kode-card-light:     rgba(255, 255, 255, 0.92);
+  --kode-card-border:    rgba(255, 255, 255, 0.55);
+  --kode-ink-strong:     #1f2937;
+  --kode-ink-soft:       rgba(0, 0, 0, 0.72);
+  --kode-ink-mute:       rgba(0, 0, 0, 0.55);
+  --kode-dim-overlay:    rgba(15, 25, 30, 0.62);
+
+  /* Motion (DESIGN.md → Animations) */
+  --kode-quick:   0.15s ease;
+  --kode-soft:    0.25s cubic-bezier(0.34, 1.2, 0.64, 1);
+  --kode-spring:  0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* -------------------------------------------------------------------------
+   Light scheme — `palette.primary: custom` overrides
+   ------------------------------------------------------------------------- */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:           var(--kode-primary);
+  --md-primary-fg-color--light:    var(--kode-primary-hover);
+  --md-primary-fg-color--dark:     var(--kode-primary-active);
+  --md-primary-bg-color:           #ffffff;
+  --md-primary-bg-color--light:    rgba(255, 255, 255, 0.7);
+
+  --md-accent-fg-color:            var(--kode-primary-hover);
+  --md-accent-fg-color--transparent: var(--kode-primary-tint);
+  --md-accent-bg-color:            #ffffff;
+  --md-accent-bg-color--light:     rgba(255, 255, 255, 0.7);
+
+  --md-default-bg-color:           #f5f7f6;
+  --md-default-fg-color:           var(--kode-ink-strong);
+  --md-default-fg-color--light:    var(--kode-ink-soft);
+  --md-default-fg-color--lighter:  var(--kode-ink-mute);
+
+  --md-typeset-a-color:            var(--kode-primary);
+  --md-code-bg-color:              rgba(45, 95, 78, 0.06);
+  --md-code-fg-color:              #1f4438;
+}
+
+/* -------------------------------------------------------------------------
+   Dark scheme — slate, brand-tinted
+   ------------------------------------------------------------------------- */
+[data-md-color-scheme="slate"] {
+  --md-hue: 170;
+
+  --md-primary-fg-color:           var(--kode-primary);
+  --md-primary-fg-color--light:    var(--kode-primary-hover);
+  --md-primary-fg-color--dark:     var(--kode-primary-active);
+  --md-primary-bg-color:           rgba(255, 255, 255, 0.96);
+  --md-primary-bg-color--light:    rgba(255, 255, 255, 0.7);
+
+  --md-accent-fg-color:            #6fb39a;
+  --md-accent-fg-color--transparent: rgba(111, 179, 154, 0.12);
+  --md-accent-bg-color:            #ffffff;
+  --md-accent-bg-color--light:     rgba(255, 255, 255, 0.7);
+
+  --md-default-bg-color:           #0e1714;
+  --md-default-fg-color:           rgba(255, 255, 255, 0.96);
+  --md-default-fg-color--light:    rgba(255, 255, 255, 0.72);
+  --md-default-fg-color--lighter:  rgba(255, 255, 255, 0.45);
+
+  --md-typeset-a-color:            #6fb39a;
+  --md-code-bg-color:              rgba(255, 255, 255, 0.05);
+  --md-code-fg-color:              rgba(255, 255, 255, 0.92);
+}
+
+/* -------------------------------------------------------------------------
+   Typography — IBM Plex tightening per DESIGN.md → Typography
+   ------------------------------------------------------------------------- */
+.md-typeset {
+  font-feature-settings: "kern", "liga";
+}
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  font-weight: 500;            /* DESIGN.md: never bold */
+  letter-spacing: -0.01em;     /* tighten slightly */
+}
+.md-typeset h1 { font-size: 2.1rem;   line-height: 1.15; }
+.md-typeset h2 { font-size: 1.5rem;   line-height: 1.2;  margin-top: 2rem; }
+.md-typeset h3 { font-size: 1.0625rem; line-height: 1.3;  text-transform: none; }
+
+/* Tabular numerals for anything that ticks */
+.md-typeset code,
+.md-typeset kbd,
+.md-typeset pre {
+  font-feature-settings: "tnum" 1;
+}
+
+/* -------------------------------------------------------------------------
+   Header — flat, calm, brand teal
+   ------------------------------------------------------------------------- */
+.md-header {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+.md-tabs {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* -------------------------------------------------------------------------
+   Links — soft underline on hover, brand colour
+   ------------------------------------------------------------------------- */
+.md-typeset a {
+  transition: color var(--kode-quick), opacity var(--kode-quick);
+}
+.md-typeset a:hover {
+  color: var(--md-primary-fg-color--light);
+}
+
+/* -------------------------------------------------------------------------
+   Grid cards (Material) — liquid-glass tile flavour from DESIGN.md
+   ------------------------------------------------------------------------- */
+.md-typeset .grid.cards > :is(ul, ol) > li,
+.md-typeset .grid > .card {
+  border-radius: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 1.25rem 1.4rem;
+  transition: transform var(--kode-spring),
+              box-shadow var(--kode-spring),
+              border-color var(--kode-quick);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 8px 28px rgba(0, 0, 0, 0.06);
+}
+.md-typeset .grid.cards > :is(ul, ol) > li:hover {
+  transform: translateY(-2px);
+  border-color: var(--kode-primary-tint);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 14px 36px rgba(45, 95, 78, 0.14);
+}
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > :is(ul, ol) > li {
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 28px rgba(0, 0, 0, 0.3);
+}
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > :is(ul, ol) > li:hover {
+  border-color: rgba(111, 179, 154, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 14px 36px rgba(0, 0, 0, 0.45);
+}
+
+/* -------------------------------------------------------------------------
+   Admonitions — match brand palette (DESIGN.md → Semantic palette)
+   ------------------------------------------------------------------------- */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 12px;
+  border-left-width: 3px;
+}
+.md-typeset .admonition.note,
+.md-typeset .admonition.info,
+.md-typeset details.note,
+.md-typeset details.info {
+  border-left-color: var(--kode-primary);
+}
+.md-typeset .admonition.note > .admonition-title,
+.md-typeset .admonition.info > .admonition-title {
+  background: rgba(45, 95, 78, 0.07);
+}
+
+/* -------------------------------------------------------------------------
+   Code — softer, brand-tinted backgrounds
+   ------------------------------------------------------------------------- */
+.md-typeset pre > code {
+  border-radius: 12px;
+}
+.md-typeset :not(pre) > code {
+  border-radius: 6px;
+  padding: 0.1em 0.4em;
+}
+
+/* -------------------------------------------------------------------------
+   Buttons — pill, primary teal
+   ------------------------------------------------------------------------- */
+.md-typeset .md-button {
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  font-weight: 500;
+  transition: background var(--kode-quick),
+              transform var(--kode-spring),
+              box-shadow var(--kode-spring);
+}
+.md-typeset .md-button--primary {
+  background: var(--kode-primary);
+  border-color: var(--kode-primary);
+  color: #fff;
+}
+.md-typeset .md-button--primary:hover {
+  background: var(--kode-primary-hover);
+  border-color: var(--kode-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(45, 95, 78, 0.22);
+}
+
+/* -------------------------------------------------------------------------
+   Landing hero (used on index.md)
+   ------------------------------------------------------------------------- */
+.kode-hero {
+  margin: 0.5rem 0 2.25rem;
+  padding: 2.5rem 2rem 2rem;
+  border-radius: 24px;
+  background:
+    radial-gradient(120% 100% at 0% 0%, rgba(45, 95, 78, 0.12), transparent 60%),
+    radial-gradient(120% 100% at 100% 100%, rgba(63, 122, 102, 0.08), transparent 55%),
+    var(--md-default-bg-color);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 18px 48px rgba(0, 0, 0, 0.05);
+}
+[data-md-color-scheme="slate"] .kode-hero {
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 18px 48px rgba(0, 0, 0, 0.35);
+}
+.kode-hero h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.kode-hero p.kode-tagline {
+  margin: 0;
+  font-size: 1.0625rem;
+  color: var(--md-default-fg-color--light);
+  max-width: 36rem;
+}
+
+/* -------------------------------------------------------------------------
+   Reduced motion — respect the OS setting (DESIGN.md → Animations)
+   ------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
