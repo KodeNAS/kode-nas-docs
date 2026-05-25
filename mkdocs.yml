@@ -4,8 +4,8 @@ site_description: >-
   Documentation for KODE OS and the KODE NAS pebble — your own private cloud,
   in a box the size of a paperback.
 site_author: KODE NAS
-repo_url: https://github.com/KodeNAS/kode-nas-os
-repo_name: KodeNAS/kode-nas-os
+repo_url: https://github.com/KodeNAS/kode-os
+repo_name: KodeNAS/kode-os
 edit_uri: ""
 copyright: Copyright &copy; KODE NAS
 
