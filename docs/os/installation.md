@@ -193,6 +193,25 @@ It walks you through:
   home.
 - Choosing a dashboard layout.
 
+<div class="grid kode-gallery" markdown>
+
+<figure class="kode-figure" markdown="span">
+  ![Welcome wizard step asking 'Pick your style' with options for Beginner, Normal, and Developer.](../assets/screenshots/wizard-style.webp){ loading=lazy }
+  <figcaption>1. Pick a style — Beginner, Normal, or Developer.</figcaption>
+</figure>
+
+<figure class="kode-figure" markdown="span">
+  ![Welcome wizard step asking 'Pick the apps you want' with a list including Immich, Jellyfin, File Browser, Pi-hole, and Home Assistant.](../assets/screenshots/wizard-apps.webp){ loading=lazy }
+  <figcaption>2. Pick the apps you want installed.</figcaption>
+</figure>
+
+<figure class="kode-figure" markdown="span">
+  ![Welcome wizard step showing 'Installing your apps' with progress for jellyfin, pihole, and home-assistant.](../assets/screenshots/wizard-installing.webp){ loading=lazy }
+  <figcaption>3. Wait while your apps install.</figcaption>
+</figure>
+
+</div>
+
 Take your time. None of it is permanent — you can change anything later
 from the **Settings** screen.
 

@@ -13,6 +13,11 @@ hide:
 
 </div>
 
+<figure class="kode-figure kode-figure--hero" markdown="span">
+  ![The KODE OS dashboard — Welcome to pebble, with widgets for clock, weather, apps, family, files, system, and network.](assets/screenshots/dashboard-full.webp){ loading=lazy }
+  <figcaption>The KODE OS Beginner dashboard — what you'll see when you open your pebble.</figcaption>
+</figure>
+
 <div class="grid cards" markdown>
 
 -   :material-monitor-dashboard:{ .lg .middle } &nbsp;__KODE OS__

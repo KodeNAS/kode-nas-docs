@@ -8,6 +8,22 @@ like a finished appliance, not a Linux dashboard**.
 You don't need to know what Docker or Samba or SSH are. The dashboard handles
 all of that for you. These pages cover the parts you might want to know.
 
+<figure class="kode-figure" markdown="span">
+  ![A more compact KODE OS dashboard layout showing the apps grid centered, with side tiles for clock, weather, tips, files, and a device.](../assets/screenshots/dashboard-compact.webp){ loading=lazy }
+  <figcaption>The dashboard is fully customisable — six pre-made layouts plus drag-and-drop.</figcaption>
+</figure>
+
+## A guided tour, built in
+
+The first time you open the dashboard, KODE OS spotlights each tile and
+explains what it does. No reading required — you can step through, skip
+ahead, or come back to the tour later from **Settings**.
+
+<figure class="kode-figure kode-figure--narrow" markdown="span">
+  ![The KODE OS tour spotlights the Clock tile and explains how to switch between digital and analog, and configure the time format.](../assets/screenshots/tour-spotlight.webp){ loading=lazy }
+  <figcaption>The tour walks you through each tile, one at a time.</figcaption>
+</figure>
+
 ## Where to start
 
 <div class="grid cards" markdown>

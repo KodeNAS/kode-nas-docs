@@ -245,6 +245,85 @@
 }
 
 /* -------------------------------------------------------------------------
+   Figures — screenshots, lit-from-above feel matching tile shadows
+   ------------------------------------------------------------------------- */
+.md-typeset .kode-figure {
+  margin: 1.5rem auto;
+  text-align: center;
+}
+.md-typeset .kode-figure img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 14px 36px rgba(0, 0, 0, 0.12);
+  transition: transform var(--kode-spring), box-shadow var(--kode-spring);
+}
+.md-typeset .kode-figure img:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 20px 48px rgba(0, 0, 0, 0.18);
+}
+[data-md-color-scheme="slate"] .md-typeset .kode-figure img {
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 14px 36px rgba(0, 0, 0, 0.45);
+}
+.md-typeset .kode-figure figcaption {
+  margin-top: 0.65rem;
+  font-size: 0.8125rem;
+  color: var(--md-default-fg-color--light);
+  font-style: italic;
+}
+.md-typeset .kode-figure--hero {
+  margin-top: -0.5rem;     /* hugs the hero block above */
+  margin-bottom: 2.25rem;
+}
+.md-typeset .kode-figure--hero img {
+  border-radius: 18px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 24px 60px rgba(0, 0, 0, 0.18);
+}
+.md-typeset .kode-figure--narrow {
+  max-width: 38rem;
+}
+
+/* Gallery — a row of small figures (e.g. wizard sequence) */
+.md-typeset .kode-gallery > :is(ul, ol) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+.md-typeset .kode-gallery > :is(ul, ol) > li {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+  transition: none;
+}
+.md-typeset .kode-gallery > :is(ul, ol) > li:hover {
+  transform: none;
+  box-shadow: none;
+  border: 0;
+}
+.md-typeset .kode-gallery .kode-figure {
+  margin: 0;
+}
+.md-typeset .kode-gallery .kode-figure figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+
+/* -------------------------------------------------------------------------
    Reduced motion — respect the OS setting (DESIGN.md → Animations)
    ------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
