@@ -7,7 +7,9 @@ site_author: KODE NAS
 repo_url: https://github.com/KodeNAS/kode-os
 repo_name: KodeNAS/kode-os
 edit_uri: ""
-copyright: Copyright &copy; KODE NAS
+copyright: >-
+  &copy; 2026 KODE NAS &mdash; Content licensed under
+  <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>
 
 exclude_docs: |
   _assets-reference/
