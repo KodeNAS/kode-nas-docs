@@ -8,3 +8,10 @@ todo.md
 
 # private snapshot — already excluded from mkdocs via exclude_docs
 docs/_assets-reference/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
