@@ -1,3 +1,10 @@
 .venv/
 site/
 __pycache__/
+
+# polish-pass working docs (per fix.md / todo.md instructions)
+fix.md
+todo.md
+
+# private snapshot — already excluded from mkdocs via exclude_docs
+docs/_assets-reference/
